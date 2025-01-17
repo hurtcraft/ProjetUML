@@ -1,44 +1,44 @@
 @startuml
+' Activer les lignes orthogonales
+'skinparam linetype ortho
 left to right direction
 actor Utilisateur
 actor Administrateur
+actor WebMaster
 
-rectangle "DCU" {
-    Utilisateur -- (Créer un compte)
-    Utilisateur -- (Se connecter)
-    Utilisateur -- (Visualiser les produits)
-    Utilisateur -- (Visualiser les détails d'un produit)
-    Utilisateur -- (Passer une commande)
-    Utilisateur -- (Modifier le profil)
-    Utilisateur -- (Envoyer un message au webmaster)
-    Utilisateur -- (Noter la satisfaction du site)
+Utilisateur -- (Voir produits)
+Utilisateur -- (Contacter webmaster)
+Utilisateur -- (Passer commande)
+Utilisateur -- (Modifier le profil)
+Utilisateur -- (Noter entreprise)
+Utilisateur -- (Gestion compte création/auth/connexion)
 
-    Administrateur -- (Valider un compte utilisateur)
-    Administrateur -- (Radier un compte utilisateur)
-    Administrateur -- (Réinitialiser le mot de passe)
-    Administrateur -- (Ajouter un produit)
-    Administrateur -- (Supprimer un produit)
-    Administrateur -- (Modifier le prix d'un produit)
-    Administrateur -- (Proposer des réductions)
-    Administrateur -- (Gérer les stocks)
-    Administrateur -- (Gérer les profils utilisateurs)
+(liker produit)..u..>(Voir produits):extends
+(liker produit)..u..>(Gestion compte création/auth/connexion):include
 
-    (Passer une commande) --> (Visualiser les détails d'un produit) : extends
-}
+(Contacter webmaster)..u..>(Gestion compte création/auth/connexion):include
+(Passer commande)..u..>(Gestion compte création/auth/connexion):include
+(Noter entreprise)..u..>(Gestion compte création/auth/connexion):include
 
-note left of (Créer un compte)
-    Le compte doit être validé par l'administrateur
-    pour être actif.
-end note
 
-note left of (Valider un compte utilisateur)
-    Seul l'administrateur peut valider ou radier
-    un compte utilisateur.
-end note
+Administrateur -- (Gérer les profils utilisateurs)
+Administrateur -- (Modifier BD produit)
 
-note left of (Passer une commande)
-    L'utilisateur doit être connecté et son compte
-    doit être validé pour passer une commande.
-end note
+(Gérer les profils utilisateurs)..l..>(Gestion compte création/auth/connexion):include
+(Gérer les profils utilisateurs)<....(Reinitialiser mdp utilisateur):extends
+(Gérer les profils utilisateurs)<....(Valider compte):extends
+(Gérer les profils utilisateurs)<....(Radier compte):extends
+(Gérer les profils utilisateurs)<....(Modifier compte):extends
+
+(Modifier BD produit)<....(Augmenter stock produit):extends
+(Modifier BD produit)<....(Proposer reduc produit):extends
+(Modifier BD produit)<....(Ajouter nouveau produit):extends
+(Modifier BD produit)<....(Supprimer produit):extends
+(Modifier BD produit)<....(Modifier produit):extends 
+'(Passer une commande) --> (Visualiser les détails d'un produit) : extends
+
+(WebMaster)--(Repondre utilisateur)
+
+
 
 @enduml
