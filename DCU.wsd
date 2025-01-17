@@ -1,0 +1,48 @@
+@startuml
+left to right direction
+actor Utilisateur
+actor Administrateur
+
+rectangle "Boutique en ligne d'audiovisuels" {
+    Utilisateur -- (Créer un compte)
+    Utilisateur -- (Se connecter)
+    Utilisateur -- (Visualiser les produits)
+    Utilisateur -- (Visualiser les détails d'un produit)
+    Utilisateur -- (Passer une commande)
+    Utilisateur -- (Modifier le profil)
+    Utilisateur -- (Envoyer un message au webmaster)
+    Utilisateur -- (Noter la satisfaction du site)
+
+    Administrateur -- (Valider un compte utilisateur)
+    Administrateur -- (Radier un compte utilisateur)
+    Administrateur -- (Réinitialiser le mot de passe)
+    Administrateur -- (Ajouter un produit)
+    Administrateur -- (Supprimer un produit)
+    Administrateur -- (Modifier le prix d'un produit)
+    Administrateur -- (Proposer des réductions)
+    Administrateur -- (Gérer les stocks)
+    Administrateur -- (Gérer les profils utilisateurs)
+
+    (Visualiser les produits) --> (Visualiser les détails d'un produit) : inclut
+    (Passer une commande) --> (Visualiser les détails d'un produit) : nécessite
+    (Modifier le profil) --> (Changer l'avatar) : inclut
+    (Modifier le profil) --> (Changer les informations personnelles) : inclut
+    (Envoyer un message au webmaster) --> (Contacter l'entreprise) : inclut
+}
+
+note right of (Créer un compte)
+    Le compte doit être validé par l'administrateur
+    pour être actif.
+end note
+
+note right of (Valider un compte utilisateur)
+    Seul l'administrateur peut valider ou radier
+    un compte utilisateur.
+end note
+
+note right of (Passer une commande)
+    L'utilisateur doit être connecté et son compte
+    doit être validé pour passer une commande.
+end note
+
+@enduml
