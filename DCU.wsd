@@ -3,7 +3,7 @@ left to right direction
 actor Utilisateur
 actor Administrateur
 
-rectangle "Boutique en ligne d'audiovisuels" {
+rectangle "DCU" {
     Utilisateur -- (Créer un compte)
     Utilisateur -- (Se connecter)
     Utilisateur -- (Visualiser les produits)
@@ -23,24 +23,20 @@ rectangle "Boutique en ligne d'audiovisuels" {
     Administrateur -- (Gérer les stocks)
     Administrateur -- (Gérer les profils utilisateurs)
 
-    (Visualiser les produits) --> (Visualiser les détails d'un produit) : inclut
-    (Passer une commande) --> (Visualiser les détails d'un produit) : nécessite
-    (Modifier le profil) --> (Changer l'avatar) : inclut
-    (Modifier le profil) --> (Changer les informations personnelles) : inclut
-    (Envoyer un message au webmaster) --> (Contacter l'entreprise) : inclut
+    (Passer une commande) --> (Visualiser les détails d'un produit) : extends
 }
 
-note right of (Créer un compte)
+note left of (Créer un compte)
     Le compte doit être validé par l'administrateur
     pour être actif.
 end note
 
-note right of (Valider un compte utilisateur)
+note left of (Valider un compte utilisateur)
     Seul l'administrateur peut valider ou radier
     un compte utilisateur.
 end note
 
-note right of (Passer une commande)
+note left of (Passer une commande)
     L'utilisateur doit être connecté et son compte
     doit être validé pour passer une commande.
 end note
