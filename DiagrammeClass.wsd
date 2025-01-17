@@ -1,0 +1,69 @@
+@startuml
+' Activer les lignes orthogonales
+skinparam linetype ortho
+left to right direction
+
+' Classes principales
+class Utilisateur {
+    +String email
+    +String motDePasse
+    +String nom
+    +String prenom
+    +String adressePostale
+    +String avatar
+    +Map<Produit,Integer> panier
+    +void modifierProfil()
+    +void noterEntreprise(int note,String commentaire)
+    +void contacterWebMaster(String message)
+    +void passerCommande()
+    +void modifAvatar()
+    +void likerProduit(Produit produit)
+}
+
+class Administrateur {
+    +String login
+    +String motDePasse
+    +void validerCompte(Utilisateur utilisateur)
+    +void radierCompte(Utilisateur utilisateur)
+    +void reinitialiserMotDePasse(Utilisateur utilisateur)
+    +void modifierProduit(Produit produit)
+    +void ajouterProduit(Produit produit)
+    +void supprimerProduit(Produit produit)
+    +void augmenterStock(Produit produit, int quantite)
+    +void proposerReduction(Produit produit, float reduction)
+}
+
+class WebMaster {
+    +void repondreUtilisateur(Utilisateur utilisateur, String message)
+}
+
+class Produit {
+    +String nom
+    +String description
+    +float prix
+    +int stock
+    +int likes
+    +void ajouterLike()
+    +void modifierPrix(float nouveauPrix)
+    +void augmenterStock(int quantite)
+    +void appliquerReduction(float reduction)
+}
+
+
+
+class Categorie {
+    +String nom
+    +List<Produit> produits
+}
+class Entreprise[static] {
+    +Map<Integer,String> commentaires
+    +void addCommentaire(int note,String commentaire)
+}
+' Relations
+Utilisateur "1" -- "*" Produit : like >
+Utilisateur "1" -- "1" WebMaster : contacte >
+Administrateur "1" -- "*" Utilisateur : gère >
+Administrateur "1" -- "*" Produit : modifie >
+Produit "*" -- "*" Categorie : appartient à >
+
+@enduml
