@@ -1,0 +1,58 @@
+@startuml
+start
+:Accéder au site;
+if (Utilisateur connecté ?) then (Oui)
+    :Afficher l'écran général;
+else (Non)
+    :Afficher l'écran de connexion;
+    if (Compte existe ?) then (Oui)
+        :Se connecter avec login/mot de passe;
+    else (Non)
+        :Créer un compte;
+        if (Administrateur valide le compte ?) then (Oui)
+            :Se connecter avec login/mot de passe;
+        else (Non)
+            :Retour à l'écran de connexion;
+            stop
+        endif
+    endif
+endif
+
+:Afficher les catégories de produits;
+:Afficher promotions;
+
+while (Choisir une catégorie ?) is (Oui)
+    :Afficher les produits associés;
+    while (Choisir un produit ?) is (Oui)
+        :Afficher description détaillée;
+        if (Liker le produit ?) then (Oui)
+            :Liker le produit;
+        endif
+        if (Passer commande ?) then (Oui)
+            :Passer commande;
+        endif
+    endwhile
+    :Retour à l'écran général;
+endwhile
+
+if (Accès administrateur ?) then (Oui)
+    :Gérer les comptes utilisateurs (valider/radier/réinitialiser);
+    :Gérer les produits (ajouter/modifier/supprimer);
+endif
+
+if (Modifier profil utilisateur ?) then (Oui)
+    :Modifier avatar, nom, adresse, etc.;
+endif
+
+if (Envoyer un message au webmaster ?) then (Oui)
+    :Afficher formulaire de contact;
+    :Envoyer message;
+endif
+
+if (Donner une note de satisfaction ?) then (Oui)
+    :Saisir note (0 à 10);
+endif
+
+:Déconnexion;
+stop
+@enduml
