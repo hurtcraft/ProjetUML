@@ -1,0 +1,72 @@
+@startuml
+start
+:Accéder au site;
+while(Fermer le site ?) is (Non)
+while (Utilisateur connecté ?) is (Non)
+    :Afficher l'écran de connexion;
+    if (Compte existe ?) then (Oui)
+        :Se connecter avec login/mot de passe;
+    else (Non)
+        :Afficher l'écran d'inscription;
+        :Créer un compte;
+        if (Administrateur valide le compte ?) then (Oui)
+        else (Non)
+            :Afficher compte en attente;
+        endif
+    endif
+endwhile
+
+    if (Utilisateur = Administrateur ?) then (Oui)
+        :Afficher panneau d'administration;
+        while (Rester sur le panneau d'administration ?) is (Oui)
+            if (Gérer les comptes ?) then (Oui)
+                :Afficher la page gestion des comptes utilisateurs;
+            else (Non)
+            endif
+
+            if (Gérer les produits ?) then (Oui)
+                :Afficher la page de gestion des produits (ajouter, modifier, supprimer);
+            else (Non)
+            endif
+        endwhile
+
+    else (Non)
+        :Afficher les catégories de produits;
+        :Afficher promotions;
+        while (Rester sur les catégories de produits ?) is (Oui)
+            while (Choisir une catégorie ?) is (Oui)
+                :Afficher les produits associés;
+                while (Choisir un produit ?) is (Oui)
+                    :Afficher description détaillée;
+                    if (Liker le produit ?) then (Oui)
+                        :Liker le produit;
+                    else (Non)
+                    endif
+                    if (Passer commande ?) then (Oui)
+                        :Passer commande;
+                    else (Non)
+                    endif
+                endwhile
+                :Retour à l'écran général;
+            endwhile
+            if (Modifier profil utilisateur ?) then (Oui)
+                :Modifier avatar, nom, adresse, etc.;
+            else (Non)
+            endif
+
+            if (Envoyer un message au webmaster ?) then (Oui)
+                :Afficher formulaire de contact;
+                :Envoyer message;
+            else (Non)
+            endif
+
+            if (Donner une note de satisfaction ?) then (Oui)
+                :Saisir note (0 à 10);
+            else (Non)
+            endif
+        endwhile
+    endif
+    :Déconnexion;
+endwhile
+stop
+@enduml
