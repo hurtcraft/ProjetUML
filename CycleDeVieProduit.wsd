@@ -1,0 +1,19 @@
+@startuml
+title Cycle de vie d'un produit
+left to right direction
+state "Nouveau Produit" as Nouveau
+state "En Stock" as EnStock
+state "En Promotion" as EnPromotion
+state "En Rupture de Stock" as RuptureStock
+state "Obsolète" as Obsolete
+
+[*] --> Nouveau : Proposition par l'administrateur
+Nouveau --> EnStock : Ajout au stock
+EnStock --> EnPromotion : Application d'une réduction
+EnPromotion --> EnStock : Fin de la promotion
+EnStock --> RuptureStock : Stock épuisé
+RuptureStock --> EnStock : Réapprovisionnement
+EnStock --> Obsolete : Suppression par l'administrateur (stock = 0)
+Obsolete --> [*] : Suppression définitive
+
+@enduml
