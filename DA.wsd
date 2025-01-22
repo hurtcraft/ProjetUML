@@ -8,7 +8,7 @@ while (Utilisateur connecté ?) is (Non)
         :Se connecter avec login/mot de passe;
     else (Non)
         :Afficher l'écran d'inscription;
-        :Créer un compte;
+        :Créer un compte utilisateur;
         if (Administrateur valide le compte ?) then (Oui)
         else (Non)
             :Afficher compte en attente;

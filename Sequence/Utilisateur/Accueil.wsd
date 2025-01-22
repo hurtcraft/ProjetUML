@@ -1,0 +1,35 @@
+@startuml Accueil Utilisateur
+
+ group Connexion
+":Utilisateur" -> SiteWeb: connexion
+activate SiteWeb
+|||
+ end
+
+SiteWeb --> ":Utilisateur": Page accueil
+
+loop connecté
+alt page produit
+ group ActionProduit
+":Utilisateur" -> SiteWeb: action produit
+|||
+end
+else ModifierProfil
+ group ModifierProfil
+":Utilisateur" -> SiteWeb: modifier profil
+|||
+end
+else noter
+":Utilisateur" -> SiteWeb: Noter sur 10 étoiles
+else contacter
+":Utilisateur" -> SiteWeb: Envoyer message au Webmaster
+SiteWeb -> ":Webmaster": Envoyer message 
+end
+end
+
+":Utilisateur" -> SiteWeb: déconnexion
+deactivate SiteWeb
+
+
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml Gerer Compte
+
+alt valider compte
+":Administrateur" -> SiteWeb: valider compte
+activate SiteWeb
+SiteWeb -> "Base de données": valider compte
+activate "Base de données"
+deactivate "Base de données"
+else radier compte
+":Administrateur" -> SiteWeb: supprimer compte
+SiteWeb -> "Base de données": supprimer compte
+activate "Base de données"
+deactivate "Base de données"
+else modifier compte
+":Administrateur" -> SiteWeb: modifier compte
+SiteWeb -> "Base de données": modifier compte
+activate "Base de données"
+deactivate "Base de données"
+else reinitialiser mdp
+":Administrateur" -> SiteWeb: reinitialiser mdp
+SiteWeb -> "Base de données": reinitialiser mdp
+activate "Base de données"
+deactivate "Base de données"
+end
+
+@enduml

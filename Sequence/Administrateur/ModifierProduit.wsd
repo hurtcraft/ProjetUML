@@ -1,0 +1,36 @@
+@startuml Gerer Compte
+
+alt modifier produit
+":Administrateur" -> SiteWeb: modifier produit
+activate SiteWeb
+SiteWeb -> "Base de données": modifier produit
+activate "Base de données"
+deactivate "Base de données"
+else augmenter stock produit
+":Administrateur" -> SiteWeb: augmenter stock produit
+SiteWeb -> "Base de données": augmenter stock produit
+activate "Base de données"
+deactivate "Base de données"
+else reduction produit
+":Administrateur" -> SiteWeb: reduction produit
+SiteWeb -> "Base de données": reduction produit
+activate "Base de données"
+deactivate "Base de données"
+else nouveau produit
+":Administrateur" -> SiteWeb: nouveau produit
+SiteWeb -> "Base de données": nouveau produit
+activate "Base de données"
+deactivate "Base de données"
+else supprimer produit
+":Administrateur" -> SiteWeb: supprimer produit
+SiteWeb -> "Base de données": supprimer produit
+activate "Base de données"
+alt stock = 0
+"Base de données" -> "Base de données": suppression
+else stock > 0
+return erreur
+end
+deactivate "Base de données"
+end
+
+@enduml

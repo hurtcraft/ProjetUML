@@ -1,0 +1,21 @@
+@startuml Connexion utilisateur
+
+alt pas de compte
+ group CreationProfil
+":Utilisateur" -> SiteWeb: création profil
+activate SiteWeb
+|||
+ end
+end
+
+loop tentatives <= 5
+":Utilisateur" -> SiteWeb: Authentification
+alt connexion réussie
+    SiteWeb -> ":Utilisateur": Authentification acceptée
+else connexion échouée && tentatives < 5
+    SiteWeb -> ":Utilisateur": Authentification refusée
+else connexion échouée && tentatives = 5
+    SiteWeb -> ":Utilisateur": Connexion bloquée
+end
+end
+@enduml

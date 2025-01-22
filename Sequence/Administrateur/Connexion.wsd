@@ -1,0 +1,14 @@
+@startuml Connexion administrateur
+
+loop tentatives <= 5
+":Administrateur" -> SiteWeb: Authentification
+activate SiteWeb
+alt connexion réussie
+    SiteWeb -> ":Administrateur": Authentification acceptée
+else connexion échouée && tentatives < 5
+    SiteWeb -> ":Administrateur": Authentification refusée
+else connexion échouée && tentatives = 5
+    SiteWeb -> ":Administrateur": Connexion bloquée
+end
+end
+@enduml

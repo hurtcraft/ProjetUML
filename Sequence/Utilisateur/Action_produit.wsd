@@ -1,0 +1,22 @@
+@startuml Action produit utilisateur
+
+":Utilisateur" -> SiteWeb: Consulter produit
+activate SiteWeb
+
+SiteWeb --> ":Utilisateur": Page produit
+
+alt achat
+":Utilisateur" -> SiteWeb: Acheter produit
+SiteWeb -> ":Produit": Mise à jour stock
+activate ":Produit"
+return
+SiteWeb --> ":Utilisateur": Mise à jour page produit
+else like
+":Utilisateur" -> SiteWeb: Like produit
+SiteWeb -> ":Produit": ajoutLike
+activate ":Produit"
+return
+SiteWeb --> ":Utilisateur": Mise à jour page produit
+end
+
+@enduml

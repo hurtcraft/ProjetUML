@@ -1,0 +1,27 @@
+@startuml Panneau Admin
+
+ group Connexion
+":Administrateur" -> SiteWeb: connexion
+activate SiteWeb
+|||
+ end
+
+SiteWeb --> ":Administrateur": Page panneau admin
+
+loop
+alt page gestion compte
+ group GererCompte
+":Administrateur" -> SiteWeb: gerer compte
+|||
+end
+else page gestion produit
+ group ModifierProduit
+":Administrateur" -> SiteWeb: modifier produit
+|||
+end
+end
+end
+
+":Administrateur" -> SiteWeb: déconnexion
+deactivate SiteWeb
+@enduml
