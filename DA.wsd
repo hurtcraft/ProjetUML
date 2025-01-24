@@ -1,72 +1,108 @@
 @startuml
+|Visiteur|
 start
-:Accéder au site;
-while(Fermer le site ?) is (Non)
-while (Utilisateur connecté ?) is (Non)
-    :Afficher l'écran de connexion;
-    if (Compte existe ?) then (Oui)
-        :Se connecter avec login/mot de passe;
-    else (Non)
-        :Afficher l'écran d'inscription;
-        :Créer un compte utilisateur;
-        if (Administrateur valide le compte ?) then (Oui)
+:Cliquer pour accéder au site;
+
+while (Fermer le site ?) is (Non)
+    while (Utilisateur connecté ?) is (Non)
+        :Afficher la page de connexion;
+        if (Compte existe ?) then (Oui)
+            :Saisir login et mot de passe;
+            :Cliquer sur "Se connecter";
         else (Non)
-            :Afficher compte en attente;
+            :Cliquer sur "S'inscrire";
+            :Saisir les informations du compte;
+            if (Validation du compte par administrateur ?) then (Oui)
+                :Compte validé;
+            else (Non)
+                :Afficher "Compte en attente de validation";
+            endif
         endif
-    endif
-endwhile
+    endwhile
 
     if (Utilisateur = Administrateur ?) then (Oui)
-        :Afficher panneau d'administration;
-        while (Rester sur le panneau d'administration ?) is (Oui)
-            if (Gérer les comptes ?) then (Oui)
-                :Afficher la page gestion des comptes utilisateurs;
+        |Administrateur|
+        :Cliquer pour accéder au tableau de bord administrateur;
+
+        while (Rester sur le tableau de bord ?) is (Oui)
+            if (Gérer les utilisateurs ?) then (Oui)
+                :Cliquer sur "Gestion des utilisateurs";
+                :Modifier les informations des utilisateurs;
             else (Non)
             endif
 
             if (Gérer les produits ?) then (Oui)
-                :Afficher la page de gestion des produits (ajouter, modifier, supprimer);
+                :Cliquer sur "Gestion des produits";
+                :Ajouter, modifier ou supprimer des produits;
             else (Non)
             endif
         endwhile
 
     else (Non)
-        :Afficher les catégories de produits;
-        :Afficher promotions;
-        while (Rester sur les catégories de produits ?) is (Oui)
-            while (Choisir une catégorie ?) is (Oui)
-                :Afficher les produits associés;
-                while (Choisir un produit ?) is (Oui)
-                    :Afficher description détaillée;
-                    if (Liker le produit ?) then (Oui)
-                        :Liker le produit;
+        |Utilisateur|
+        :Afficher la page d'accueil;
+        :Faire défiler pour voir les promotions;
+
+        while (Explorer les catégories ?) is (Oui)
+            :Cliquer sur une catégorie;
+            while (Explorer les produits de la catégorie ?) is (Oui)
+                :Cliquer sur un produit;
+                :Afficher les détails du produit;
+
+                if (Acheter instantanément ?) then (Oui)
+                    :Cliquer sur "Acheter";
+                    :Finaliser l'achat;
+                else (Non)
+                    if (Ajouter au panier ?) then (Oui)
+                        :Cliquer sur "Ajouter au panier";
                     else (Non)
                     endif
-                    if (Passer commande ?) then (Oui)
-                        :Passer commande;
-                    else (Non)
-                    endif
-                endwhile
-                :Retour à l'écran général;
+                endif
             endwhile
-            if (Modifier profil utilisateur ?) then (Oui)
-                :Modifier avatar, nom, adresse, etc.;
-            else (Non)
-            endif
-
-            if (Envoyer un message au webmaster ?) then (Oui)
-                :Afficher formulaire de contact;
-                :Envoyer message;
-            else (Non)
-            endif
-
-            if (Donner une note de satisfaction ?) then (Oui)
-                :Saisir note (0 à 10);
-            else (Non)
-            endif
+            :Retourner à la liste des catégories;
         endwhile
+
+        if (Accéder au panier ?) then (Oui)
+            :Cliquer sur "Voir le panier";
+            :Afficher la liste des produits du panier;
+            while (Produits dans le panier ?) is (Oui)
+                if (Supprimer un produit du panier ?) then (Oui)
+                    :Cliquer sur "Supprimer";
+                else (Non)
+                endif
+                if (Passer la commande ?) then (Oui)
+                :Cliquer sur "Passer la commande";
+                :Finaliser la commande;
+                else (Non)
+                endif
+            endwhile
+        else (Non)
+        endif
+
+        if (Modifier le profil ?) then (Oui)
+            :Cliquer sur "Mon compte";
+            :Mettre à jour les informations personnelles (nom, email, etc.);
+        else (Non)
+        endif
+
+        if (Contacter le support ?) then (Oui)
+            :Cliquer sur "Contact";
+            :Saisir un message dans le formulaire de contact;
+            :Envoyer le message;
+        else (Non)
+        endif
+
+        if (Donner une évaluation ?) then (Oui)
+            :Attribuer une note (0 à 10);
+        else (Non)
+        endif
     endif
-    :Déconnexion;
+
+    |Visiteur|
+    if (Se déconnecter ?) then (Oui)
+        :Cliquer sur "Se déconnecter";
+        stop
+    else (Non)
+    endif
 endwhile
-stop
 @enduml
