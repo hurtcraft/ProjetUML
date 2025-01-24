@@ -1,0 +1,36 @@
+@startuml Action produit utilisateur
+
+":Utilisateur" -> SiteWeb: consulter produit
+activate SiteWeb
+
+SiteWeb --> ":Utilisateur": page produit
+
+alt achat
+":Utilisateur" -> SiteWeb: acheter produit
+SiteWeb -> ":ControleurProduit": acheter produit
+activate ":ControleurProduit"
+":ControleurProduit" -> "Base de données" : getStock
+activate "Base de données"
+return stock
+alt stock > 0
+":ControleurProduit" -> "Base de données" : modifierProduit
+activate "Base de données"
+return
+":ControleurProduit" --> "SiteWeb"
+else stock == 0
+return erreur
+end
+
+SiteWeb --> ":Utilisateur": mise à jour page produit
+else like
+":Utilisateur" -> SiteWeb:like produit
+SiteWeb -> ":ControleurProduit": ajoutLike
+activate ":ControleurProduit"
+":ControleurProduit" -> "Base de données" : ajouterLike
+activate "Base de données"
+return
+return
+SiteWeb --> ":Utilisateur": mise à jour page produit
+end
+
+@enduml

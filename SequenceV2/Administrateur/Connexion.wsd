@@ -3,6 +3,9 @@
 loop tentatives <= 5
 ":Administrateur" -> SiteWeb: authentification
 activate SiteWeb
+SiteWeb -> ":ControleurUtilisateur": authentifier
+activate ":ControleurUtilisateur"
+return réponse
 alt connexion réussie
     SiteWeb -> ":Administrateur": authentification acceptée
 else connexion échouée && tentatives < 5

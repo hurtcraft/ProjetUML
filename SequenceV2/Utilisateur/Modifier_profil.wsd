@@ -1,0 +1,27 @@
+@startuml Modifier Profil
+
+":Utilisateur" -> SiteWeb: consulter profil
+activate SiteWeb
+
+SiteWeb --> ":Utilisateur": page profil
+
+":Utilisateur" -> SiteWeb: modifier profil
+
+
+SiteWeb -> ":ControleurUtilisateur": modifier profil
+activate ":ControleurUtilisateur"
+":ControleurUtilisateur" -> ":ControleurUtilisateur": vérification données
+alt données correctes
+":ControleurUtilisateur" -> "Base de données": modifierProfil
+activate "Base de données"
+return nouveau profil
+":ControleurUtilisateur" --> "SiteWeb": nouveau profil
+else données invalides
+return erreur
+end
+
+
+
+SiteWeb --> ":Utilisateur": mise à jour page profil
+
+@enduml
