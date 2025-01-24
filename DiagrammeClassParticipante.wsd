@@ -13,7 +13,7 @@ class Utilisateur {
     +String avatar
     +Map<Produit,Integer> panier
     +void modifierProfil(Utilisateur utilisateur)
-    +void noterEntreprise(int note,String commentaire)
+    +void noterEntreprise(int note, String commentaire)
     +void contacterWebMaster(String message)
     +void passerCommande(Produit produit)
     +void likerProduit(Produit produit)
@@ -46,23 +46,48 @@ class Produit {
     +void modifierPrix(float nouveauPrix)
     +void modifierStock(int quantite)
     +void appliquerReduction(float reduction)
+    +int getStock()
 }
-
-
 
 class Categorie {
     +String nom
     +List<Produit> produits
 }
-class Entreprise[static] {
-    +Map<Integer,String> commentaires
-    +void addCommentaire(int note,String commentaire)
+
+class Entreprise {
+    +Map<Integer, String> commentaires
+    +void addCommentaire(int note, String commentaire)
 }
+
+' Classes de contrôleurs
+class ControleurUtilisateur {
+    +boolean authentifier(String email, String motDePasse)
+    +void inscrire(Utilisateur utilisateur)
+    +void modifierProfil(Utilisateur utilisateur)
+    +void noterEntreprise(Utilisateur utilisateur, int note, String commentaire)
+    +void modifAvatar(Utilisateur utilisateur)
+    +void validerCompte(Utilisateur utilisateur)
+    +void supprimerUtilisateur(Utilisateur utilisateur)
+}
+
+class ControleurProduit {
+    +void ajouterProduit(Produit produit)
+    +void supprimerProduit(Produit produit)
+    +void modifierProduit(Produit produit)
+    +void ajouterLike(Produit produit)
+    +void appliquerReduction(Produit produit, float reduction)
+    +void getStock(Produit produit)
+}
+
 ' Relations
 Utilisateur "1" -- "*" Produit : like >
 Utilisateur "1" -- "1" WebMaster : contacte >
 Administrateur "1" -- "*" Utilisateur : gère >
 Administrateur "1" -- "*" Produit : modifie >
 Produit "*" -- "*" Categorie : appartient à >
+
+' Liaisons avec les classes de contrôleurs
+Utilisateur "1" -- "1" ControleurUtilisateur : géré par >
+Produit "1" -- "1" ControleurProduit : géré par >
 
 @enduml
