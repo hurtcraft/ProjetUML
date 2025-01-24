@@ -1,14 +1,14 @@
 @startuml Création Profil
 
-":Utilisateur" -> SiteWeb: Création profil
+":Utilisateur" -> SiteWeb: création profil
 activate "SiteWeb"
 
-SiteWeb -> "InstanceBD:Utilisateur": Création profil
+SiteWeb -> "InstanceBD:Utilisateur": création profil
 
 activate "InstanceBD:Utilisateur"
 
 deactivate "InstanceBD:Utilisateur"
 
-return Page Connexion
+return page Connexion
 
 @enduml

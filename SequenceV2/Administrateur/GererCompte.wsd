@@ -1,0 +1,38 @@
+@startuml Gerer Compte
+
+alt valider compte
+":Administrateur" -> SiteWeb: valider compte
+activate SiteWeb
+SiteWeb -> ":ControleurUtilisateur": valider compte
+activate ":ControleurUtilisateur"
+":ControleurUtilisateur" -> "Base de données": validerCompte
+activate "Base de données"
+return
+deactivate ":ControleurUtilisateur"
+else radier compte
+":Administrateur" -> SiteWeb: supprimer compte
+SiteWeb -> ":ControleurUtilisateur": supprimer compte
+activate ":ControleurUtilisateur"
+":ControleurUtilisateur" -> "Base de données": supprimerUtilisateur
+activate "Base de données"
+return
+deactivate ":ControleurUtilisateur"
+else modifier compte
+":Administrateur" -> SiteWeb: modifier compte
+SiteWeb -> ":ControleurUtilisateur": modifier compte
+activate ":ControleurUtilisateur"
+":ControleurUtilisateur" -> "Base de données": modifierProfil
+activate "Base de données"
+return
+deactivate ":ControleurUtilisateur"
+else reinitialiser mdp
+":Administrateur" -> SiteWeb: reinitialiser mdp
+SiteWeb -> ":ControleurUtilisateur": reinitialiser mdp
+activate ":ControleurUtilisateur"
+":ControleurUtilisateur" -> "Base de données": modifierProfil
+activate "Base de données"
+return
+deactivate ":ControleurUtilisateur"
+end
+
+@enduml

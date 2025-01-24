@@ -1,0 +1,20 @@
+@startuml Création Profil
+
+":Utilisateur" -> SiteWeb: création profil
+activate "SiteWeb"
+SiteWeb -> ":ControleurUtilisateur": création profil
+activate ":ControleurUtilisateur"
+":ControleurUtilisateur" -> ":ControleurUtilisateur": vérification données
+
+alt données correctes
+":ControleurUtilisateur" -> "Base de données": inscrire
+activate "Base de données"
+return nouveau profil
+":ControleurUtilisateur" --> "SiteWeb": nouveau profil
+else données invalides
+return erreur
+end
+
+return page connexion
+
+@enduml
